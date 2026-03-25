@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Suchetana Bauri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --ink-deep: #171b4b;     /* primary indigo */
+      --ink-soft: #23253b;     /* body text */
+      --cream:    #f4efe6;
+      --white:    #ffffff;
+      --muted:    #6b6b80;
+
+      --gold:     #d8b16c;
+      --shadow-soft: 0 16px 40px rgba(15, 23, 42, 0.08);
+
+      --font-display: "DM Serif Display", Georgia, serif;
+      --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", sans-serif;
+
+      --page-max: 1120px;
+      --radius-card: 18px;
+      --radius-pill: 999px;
+
+      --transition-fast: 180ms ease-out;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--ink-soft);
+      background-color: var(--cream);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--ink-deep); }
+
+    .page {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 24px 24px 80px;
+    }
+
+    /* ---------- Nav ---------- */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 20px;
+      background: var(--cream);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+    .nav__brand {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--ink-deep);
+      text-transform: uppercase;
+    }
+    .nav__menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .nav__link {
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav__link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--ink-deep);
+      transition: width var(--transition-fast);
+    }
+    .nav__link:hover::after {
+      width: 100%;
+    }
+
+    .nav__cta {
+      padding: 9px 20px;
+      border-radius: var(--radius-pill);
+      background: var(--ink-deep);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(23, 27, 75, 0.32);
+      transition: transform var(--transition-fast),
+                  box-shadow var(--transition-fast),
+                  background var(--transition-fast);
+    }
+    .nav__cta:hover {
+      transform: translateY(-1px);
+      background: #2a31a5;
+      box-shadow: 0 14px 36px rgba(23, 27, 75, 0.38);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 64px;
+      padding: 80px 0 72px;
+      align-items: center;
+    }
+    .hero__eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.1vw, 44px);
+      line-height: 1.18;
+      color: var(--ink-deep);
+      margin: 0 0 18px;
+    }
+    .hero__body {
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 26px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-pill);
+      padding: 11px 24px;
+      border: none;
+      background: var(--ink-deep);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform var(--transition-fast),
+                  box-shadow var(--transition-fast),
+                  background var(--transition-fast);
+      box-shadow: 0 12px 32px rgba(23, 27, 75, 0.4);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      background: #2a31a5;
+      box-shadow: 0 16px 40px rgba(23, 27, 75, 0.5);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--ink-deep);
+      box-shadow: none;
+      border-radius: 999px;
+      padding-inline: 0;
+    }
+    .btn--ghost span {
+      border-bottom: 1px solid rgba(23, 27, 75, 0.2);
+      padding-bottom: 2px;
+      transition: border-color var(--transition-fast),
+                  padding-bottom var(--transition-fast);
+    }
+    .btn--ghost:hover span {
+      border-color: rgba(23, 27, 75, 1);
+      padding-bottom: 4px;
+    }
+
+    .hero__photo-wrap {
+      position: relative;
+      justify-self: end;
+    }
+    .hero__photo-frame {
+      position: absolute;
+      inset: -18px -26px auto auto;
+      border-radius: 32px;
+      border: 2px solid rgba(23, 27, 75, 0.3);
+    }
+    .hero__photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      background: var(--white);
+      box-shadow: var(--shadow-soft);
+      transform: translateY(4px);
+      transition: transform 220ms ease-out, box-shadow 220ms ease-out;
+    }
+    .hero__photo-card:hover {
+      transform: translateY(0);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
+    }
+
+    /* ---------- Section shell ---------- */
+    section {
+      padding: 72px 0 32px;
+    }
+    .section__heading {
+      font-family: var(--font-display);
+      font-size: 26px;
+      text-align: center;
+      color: var(--ink-deep);
+      margin-bottom: 40px;
+    }
+
+    /* ---------- What I do ---------- */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 26px 24px 24px;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.07);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      transition: transform var(--transition-fast),
+                  box-shadow var(--transition-fast),
+                  border-color var(--transition-fast),
+                  background var(--transition-fast);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 60px rgba(15, 23, 42, 0.14);
+      border-color: rgba(23, 27, 75, 0.25);
+      background: #f8f4ec;
+    }
+    .card__eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .card__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--ink-deep);
+      margin: 0 0 10px;
+    }
+    .card__body {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ---------- Selected work ---------- */
+    .selected-work {
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+      margin-top: 40px;
+      padding-top: 56px;
+    }
+    .work-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 24px 24px 20px;
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+      border-left: 4px solid var(--ink-deep);
+      transition: transform var(--transition-fast),
+                  box-shadow var(--transition-fast),
+                  border-color var(--transition-fast);
+    }
+    .work-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 26px 64px rgba(15, 23, 42, 0.16);
+      border-color: var(--gold);
+    }
+    .work-card + .work-card {
+      margin-top: 18px;
+    }
+    .work-card__title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      color: var(--ink-deep);
+      margin-bottom: 6px;
+    }
+    .work-card__meta {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .work-card__body {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .work-card__link {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-deep);
+    }
+    .work-card__link span {
+      border-bottom: 1px solid rgba(23, 27, 75, 0.3);
+      padding-bottom: 2px;
+      transition: padding-bottom var(--transition-fast),
+                  border-color var(--transition-fast);
+    }
+    .work-card:hover .work-card__link span {
+      padding-bottom: 4px;
+      border-color: rgba(23, 27, 75, 1);
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .hero__photo-wrap {
+        justify-self: start;
+        max-width: 320px;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .page {
+        padding-inline: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- Nav -->
+    <header class="nav">
+      <div class="nav__brand">Suchetana Bauri</div>
+      <nav class="nav__menu">
+        <a href="#home" class="nav__link">Home</a>
+        <a href="#work" class="nav__link">Work</a>
+        <a href="#services" class="nav__link">Services</a>
+        <a href="#about" class="nav__link">About</a>
+        <a href="#blog" class="nav__link">Blog</a>
+        <a href="#contact" class="nav__cta">Work with me</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <main id="home" class="hero">
+      <div>
+        <div class="hero__eyebrow">Communication · UX · AI</div>
+        <h1 class="hero__title">
+          Communication, UX, and AI support for tech organisations
+        </h1>
+        <p class="hero__body">
+          I analyse products, journeys, and campaigns, then turn them into clear strategy,
+          UX copy, and content your team can ship.
+        </p>
+        <div class="hero__actions">
+          <button class="btn">Work with me</button>
+          <button class="btn btn--ghost"><span>View selected work</span></button>
+        </div>
+      </div>
+
+      <div class="hero__photo-wrap">
+        <div class="hero__photo-frame"></div>
+        <div class="hero__photo-card">
+          <!-- Replace with your actual image -->
+          <img src="portrait-placeholder.jpg" alt="Suchetana portrait" />
+        </div>
+      </div>
+    </main>
+
+    <!-- What I do -->
+    <section id="services">
+      <h2 class="section__heading">What I do</h2>
+      <div class="grid-3">
+        <article class="card">
+          <div class="card__eyebrow">Strategy & communication</div>
+          <h3 class="card__title">Narratives and decision docs</h3>
+          <p class="card__body">
+            I work with leaders and teams to organise thinking, sharpen narratives, and make decisions visible.
+            This includes messaging, internal comms, launch stories, and working docs teams actually use.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card__eyebrow">UX, content & product</div>
+          <h3 class="card__title">Product copy and journeys</h3>
+          <p class="card__body">
+            I look at journeys, interfaces, and copy together, then tune them so people know what to do next.
+            This covers UX writing, UI design decisions, product flows, IA, and reviews of live experiences.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card__eyebrow">AI marketing, tools & experiments</div>
+          <h3 class="card__title">Systems and small tools</h3>
+          <p class="card__body">
+            I help teams use AI and data to run smarter campaigns instead of louder ones—tightening funnels,
+            setting up simple systems, and building small AI‑powered tools and experiments you can test quickly.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Selected work -->
+    <section id="work" class="selected-work">
+      <h2 class="section__heading">Selected work</h2>
+
+      <article class="work-card">
+        <div class="work-card__meta">Communication & internal narratives</div>
+        <h3 class="work-card__title">
+          Microsoft — Aligning AI adoption narratives during change
+        </h3>
+        <p class="work-card__body">
+          As Microsoft accelerated AI adoption, different leaders were pushing overlapping priorities.
+          I helped turn these viewpoints into clear internal narratives and working docs so teams understood
+          what mattered and why.
+        </p>
+        <a href="#" class="work-card__link"><span>Read the full project</span></a>
+      </article>
+
+      <article class="work-card">
+        <div class="work-card__meta">UX & content design</div>
+        <h3 class="work-card__title">
+          ELMS — UX & content design for learning experiences
+        </h3>
+        <p class="work-card__body">
+          Coaches and PE teachers needed programmes that were easier to navigate and apply.
+          I reviewed journeys, structure, and copy together, improving flow, clarifying next steps,
+          and making materials more usable across key touchpoints.
+        </p>
+        <a href="#" class="work-card__link"><span>Read the full project</span></a>
+      </article>
+
+      <article class="work-card">
+        <div class="work-card__meta">Digital marketing & strategy</div>
+        <h3 class="work-card__title">
+          ISB — Digital marketing with strategic discipline
+        </h3>
+        <p class="work-card__body">
+          ISB needed digital marketing that did more than push content. I built and ran structured initiatives
+          across content, channels, and audience journeys so outreach became clearer, more targeted,
+          and more measurable.
+        </p>
+        <a href="#" class="work-card__link"><span>Read the full project</span></a>
+      </article>
+    </section>
+
+  </div>
+</body>
+</html>
